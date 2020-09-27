@@ -1,6 +1,7 @@
 [build]
   publish = "packages/frontend/build/"
-  command = "cd packages/frontend/build && npm ci && npm run build"
+  # ghetto build & link in core module until netlify supports npm v7
+  command = "cd packages/core && npm ci && npm run build && cd ../frontend && npm i ../core && npm ci && npm run build"
 
 [context.branch-deploy.environment]
   NODE_ENV = "development"
