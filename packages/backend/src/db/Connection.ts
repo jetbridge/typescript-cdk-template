@@ -3,6 +3,10 @@ import { inspect } from "util"
 // import { SnakeNamingStrategy } from './SnakeNamingStrategy'
 import { User } from "jkv2-core"
 
+// instrument queries with xray
+const AWSXRay = require("aws-xray-sdk")
+AWSXRay.capturePostgres(require("pg"))
+
 /**
  * Database manager class
  */
