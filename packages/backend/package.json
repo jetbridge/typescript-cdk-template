@@ -1,0 +1,40 @@
+{
+  "name": "jkv2-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc",
+    "start": "sls offline",
+    "deploy": "npm run deploy:dev",
+    "deploy:dev": "sls deploy -s dev",
+    "lint": "eslint src/**/*.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@lambda-middleware/class-validator": "^1.0.1",
+    "@lambda-middleware/compose": "^1.0.1",
+    "@lambda-middleware/http-error-handler": "^1.0.1",
+    "aws-lambda": "^1.0.6",
+    "aws-sdk": "^2.747.0",
+    "class-validator": "^0.12.2",
+    "dotenv": "^8.2.0",
+    "pg": "^7.3.0",
+    "reflect-metadata": "^0.1.10",
+    "typeorm": "0.2.25",
+    "typeorm-aurora-data-api-driver": "^1.4.0"
+  },
+  "devDependencies": {
+    "@types/aws-lambda": "^8.10.62",
+    "@types/node": "^8.0.29",
+    "serverless-layers": "^2.2.4",
+    "serverless-offline": "^6.7.0",
+    "serverless-plugin-optimize": "^4.1.4-rc.1",
+    "serverless-plugin-typescript": "^1.1.9",
+    "serverless-pseudo-parameters": "^2.5.0",
+    "ts-node": "3.3.0",
+    "typescript": "4.0.2"
+  }
+}

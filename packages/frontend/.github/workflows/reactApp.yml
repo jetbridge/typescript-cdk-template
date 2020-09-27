@@ -1,0 +1,38 @@
+name: Build and test
+
+on: [push]
+
+jobs:
+  Build-Test:
+    runs-on: ubuntu-latest
+
+    name: Build and Test
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: "12.x"
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Build application
+        run: npm run build
+
+      - name: Prettier
+        run: npm run fmt:check
+
+      - name: ESLint
+        run: npm run lint
+
+      - name: Jest
+        run: npm run coverage:jest
+
+      - name: Cypress
+        uses: cypress-io/github-action@v1
+        with:
+          start: npm start
+          config-file: cypress.json
+          wait-on: "http://localhost:3010"

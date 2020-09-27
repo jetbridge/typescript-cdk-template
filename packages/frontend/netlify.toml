@@ -1,0 +1,18 @@
+[build]
+  publish = "packages/frontend/build/"
+  command = "cd packages/frontend/build && npm ci && npm run build"
+
+[context.branch-deploy.environment]
+  NODE_ENV = "development"
+[context.deploy-preview]
+  NODE_ENV = "development"
+
+[context.production]
+  [context.production.environment]
+    # REACT_APP_BASE_URL = "https://api.foo.com/prd"
+
+# for react-router
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200

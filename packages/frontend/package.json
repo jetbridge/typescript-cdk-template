@@ -1,0 +1,92 @@
+{
+  "name": "jkv2-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@jetkit/react": "latest",
+    "@material-ui/core": "latest",
+    "@material-ui/icons": "latest",
+    "@material-ui/styles": "latest",
+    "@testing-library/dom": "^7.24.3",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1",
+    "@types/jest": "^24.9.1",
+    "@types/react-dom": "^16.9.8",
+    "axios": "^0.19.0",
+    "classnames": "latest",
+    "jetbridge-react-scripts": "1.3.13",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1",
+    "react-router-dom": "latest",
+    "typescript": "^4.0.3"
+  },
+  "devDependencies": {
+    "@storybook/addon-actions": "latest",
+    "@storybook/addon-centered": "latest",
+    "@storybook/addon-links": "latest",
+    "@storybook/addons": "latest",
+    "@storybook/cli": "latest",
+    "@storybook/preset-create-react-app": "latest",
+    "@storybook/react": "latest",
+    "@types/node": "^12.12.55",
+    "@types/react": "^16.9.49",
+    "@types/react-router": "latest",
+    "@types/react-router-dom": "latest",
+    "awesome-typescript-loader": "latest",
+    "babel-eslint": "10.1.0",
+    "babel-jest": "^24.9.0",
+    "babel-loader": "8.1.0",
+    "eslint": "^6.6.0",
+    "eslint-plugin-react-app": "latest",
+    "husky": "latest",
+    "jest": "24.9.0",
+    "lint-staged": "latest",
+    "prettier": "latest",
+    "react-docgen-typescript-loader": "latest",
+    "webpack": "4.42.0",
+    "webpack-dev-server": "3.10.3"
+  },
+  "types": "index.d.ts",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "**/*.{js,jsx,ts,tsx}": [
+      "prettier --write",
+      "eslint --fix",
+      "git add"
+    ]
+  },
+  "scripts": {
+    "start": "PORT=3010 react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "lint": "eslint src/**/*.ts src/**/*.tsx",
+    "fix": "prettier --write '{*.{ts,js},!(node_modules*)**/*.{ts,tsx,js,jsx}}' && eslint --fix src/**/*.ts src/**/*.tsx",
+    "fmt:check": "prettier --check src/**/*.{js,jsx,ts,tsx}",
+    "storybook": "start-storybook -p 9009 -s public",
+    "build-storybook": "build-storybook -s public",
+    "coverage:jest": "jest --coverage",
+    "cypress:open": "cypress open",
+    "cypress:run": "cypress run"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}

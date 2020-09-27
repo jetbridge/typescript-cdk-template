@@ -1,0 +1,1 @@
+type ExtId = string

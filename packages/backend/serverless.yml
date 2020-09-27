@@ -1,0 +1,62 @@
+service: jkv2-sls-demo
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'eu-west-1'}
+  profile: ${env:AWS_PROFILE, 'hrt'}
+
+  environment:
+    NODE_ENV: development
+  httpApi:
+    cors: true
+    payload: "2.0"
+  logs:
+    httpApi: true
+  tracing:
+    apiGateway: true
+    lambda: true
+  iamRoleStatements:
+    # aurora data-api
+    - Effect: Allow
+      Action:
+        - rds-data:ExecuteStatement
+        - rds-data:BatchExecuteStatement
+        - rds-data:BeginTransaction
+        - rds-data:RollbackTransaction
+        - rds-data:CommitTransaction
+        - rds-data:BeginTransaction
+      Resource: "arn:aws:rds:#{AWS::Region}:#{AWS::AccountId}:cluster:lemmy-prod"
+    - Effect: Allow
+      Action: secretsmanager:GetSecretValue
+      Resource:
+        # hardcoded to use lemmy db for now
+        - "arn:aws:secretsmanager:eu-west-1:736338821564:secret:rds-db-credentials/cluster-7556WO6SLQ3MHNOKFVGYVYKJOQ/postgres-TL9sG8"
+
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
+  - serverless-plugin-optimize
+  - serverless-pseudo-parameters
+  # - serverless-layers
+
+package:
+  exclude:
+    - config/.env.stg
+    - config/.env.prd
+  include:
+    - config/.env.dev
+
+functions:
+  listUsers:
+    handler: src/api/user.list
+    events:
+      - httpApi:
+          method: GET
+          path: /user
+  createUser:
+    handler: src/api/user.create
+    events:
+      - httpApi: "POST /user"
