@@ -4,11 +4,11 @@
   command = """
   npm i -g typescript@4.0.3 && \
   cd packages/core && \
-  npm ci && \
+  npm i && \
   npm run build && \
   cd ../frontend && \
   npm i ../core && \
-  npm ci && \
+  npm i && \
   npm run build
   """
 
