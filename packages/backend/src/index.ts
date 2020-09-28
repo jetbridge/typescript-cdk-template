@@ -1,10 +1,8 @@
-import dotenv from "dotenv"
-import path from "path"
 import { Database } from "./db/Connection"
-const dotenvPath = path.join(__dirname, "../", `config/.env.${process.env.NODE_ENV}`)
-dotenv.config({
-  path: dotenvPath,
-})
 
-// THIS IS WRONG
+// xray
+const AWSXRay = require("aws-xray-sdk")
+AWSXRay.captureAWS(require("aws-sdk"))
+
+// this might be wrong
 export const db = new Database()

@@ -8,8 +8,6 @@ provider:
   region: ${opt:region, 'eu-west-1'}
   profile: ${env:AWS_PROFILE, 'hrt'}
 
-  environment:
-    NODE_ENV: development
   httpApi:
     cors: true
     payload: "2.0"
@@ -40,22 +38,14 @@ plugins:
   - serverless-offline
   - serverless-plugin-optimize
   - serverless-pseudo-parameters
+  - serverless-dotenv-plugin
   # - serverless-layers
-
-package:
-  exclude:
-    - config/.env.stg
-    - config/.env.prd
-  include:
-    - config/.env.dev
 
 functions:
   listUsers:
     handler: src/api/user.list
     events:
-      - httpApi:
-          method: GET
-          path: /user
+      - httpApi: "GET /user"
   createUser:
     handler: src/api/user.create
     events:

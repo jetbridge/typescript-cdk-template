@@ -42,12 +42,14 @@ There is a LOT of room for improvement here. Some obvious enhancements could be:
 - Figure out correct way to get/share DB connection handle
 - Find or make decorators for easy request/response validation/serialization - maybe [class-transformer](https://github.com/typestack/class-transformer)
 - Hook up OpenAPI (swagger) documentation
+- Maybe generate OpenAPI TS client?
 - Figure out authentication, using [HTTP API auth](https://docs.aws.amazon.com/apigateway/latest/developerguide/http-api-jwt-authorizer.html) and maybe cognito
 - Error handling, maybe using [@lambda-middleware/http-error-handler](https://dbartholomae.github.io/lambda-middleware/packages/http-error-handler/)
 - Frontend API support: check validation response automatically, authentication, etc
 - Unified prettier/eslint configuration for the whole project
 - Not sure if eslint should be set up per-package or at the top level
 - GitHub actions
+- Backend tests
 
 ## Troubleshooting
 

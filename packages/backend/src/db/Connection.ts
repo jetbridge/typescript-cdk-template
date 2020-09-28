@@ -1,14 +1,18 @@
 import { Connection, ConnectionManager, ConnectionOptions, createConnection, getConnectionManager } from "typeorm"
 import { inspect } from "util"
-// import { SnakeNamingStrategy } from './SnakeNamingStrategy'
 import { User } from "jkv2-core"
 
 // instrument queries with xray
 const AWSXRay = require("aws-xray-sdk")
 AWSXRay.capturePostgres(require("pg"))
 
+// list of entities from core go here
+const ALL_ENTITIES = [User]
+
 /**
  * Database manager class
+ * Taken from https://medium.com/safara-engineering/wiring-up-typeorm-with-serverless-5cc29a18824f
+ * This MAY NOT BE THE BEST WAY TO GET/CACHE DB CONNECTIONS!
  */
 export class Database {
   private connectionManager: ConnectionManager
@@ -18,7 +22,7 @@ export class Database {
   }
 
   public async getConnection(): Promise<Connection> {
-    const CONNECTION_NAME = `default`
+    const CONNECTION_NAME = "lemmy-aurora-data-api"
 
     let connection: Connection
 
@@ -30,24 +34,23 @@ export class Database {
       }
     } else {
       const connectionOptions: ConnectionOptions = {
+        entities: ALL_ENTITIES,
         type: "aurora-data-api-pg",
+        // type: `postgres`,
         database: "lemmy",
         secretArn:
           "arn:aws:secretsmanager:eu-west-1:736338821564:secret:rds-db-credentials/cluster-7556WO6SLQ3MHNOKFVGYVYKJOQ/postgres-TL9sG8",
         resourceArn: "arn:aws:rds:eu-west-1:736338821564:cluster:lemmy-prod",
         region: "eu-west-1",
         logging: ["query", "error"], // log queries
-        name: `lemmy-aurora-data-api`,
-        // type: `postgres`,
+        name: CONNECTION_NAME,
         // port: 5432,
         // synchronize: true,
-        // logging: true,
         // host: process.env.DB_HOST,
         // username: process.env.DB_USERNAME,
         // database: process.env.DB_NAME,
         // password: process.env.DB_PASSWORD,
         // namingStrategy: new SnakeNamingStrategy(),
-        entities: [__dirname + "/../entity/*.*", User],
       }
 
       // Don't need a pwd locally
