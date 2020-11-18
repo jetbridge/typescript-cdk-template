@@ -8,8 +8,9 @@
     "build": "tsc",
     "start": "sls offline",
     "deploy": "npm run deploy:dev",
-    "deploy:dev": "sls deploy -s dev",
-    "deploy:prd": "NODE_ENV=production sls deploy -s prd",
+    "deploy:dev": "AWS_PROFILE=mercury-dev SSH_KEYPAIR=mercury-dev-2020 BASE_URL=https://lh2yc6beje.execute-api.us-east-1.amazonaws.com sls deploy -s dev",
+    "deploy:marie-ccsf": "NODE_ENV=production AWS_PROFILE=mercury-prod SSH_KEYPAIR=mercury-prod-2020 BASE_URL=https://egtxueipo0.execute-api.us-east-1.amazonaws.com sls deploy -s marie-ccsf",
+    "deploy:pinto-d7": "NODE_ENV=production AWS_PROFILE=mercury-prod SSH_KEYPAIR=mercury-prod-2020 BASE_URL=https://6m5i5qg3s9.execute-api.us-east-1.amazonaws.com sls deploy -s pinto-d7",
     "lint": "eslint src/**/*.ts",
     "update:sls": "npm install -d serverless@latest serverless-offline@latest serverless-plugin-optimize@latest serverless-plugin-typescript@latest serverless-layers@latest serverless-dotenv-plugin@latest"
   },
@@ -23,6 +24,7 @@
     "aws-sdk": "^2.747.0",
     "aws-xray-sdk": "^3.2.0",
     "aws-xray-sdk-postgres": "^3.2.0",
+    "camelcase-keys": "^6.2.2",
     "class-validator": "^0.12.2",
     "dotenv": "^8.2.0",
     "pg": "^7.3.0",
@@ -32,8 +34,10 @@
     "typeorm-aurora-data-api-driver": "^1.4.0"
   },
   "devDependencies": {
+    "@babel/helper-validator-option": "^7.12.0",
     "@types/aws-lambda": "^8.10.62",
     "@types/node": "^8.0.29",
+    "serverless-cognito-add-custom-attributes": "^0.3.0",
     "serverless-dotenv-plugin": "^3.0.0",
     "serverless-layers": "^2.3.0",
     "serverless-offline": "^6.8.0",

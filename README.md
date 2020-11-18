@@ -8,14 +8,14 @@ This includes JBCRA frontend, serverless backend with TypeORM connected to auror
 
 ## Prerequisites
 
-NPM v7 (not officially released yet)
+NPM v7
 
 - `npm i -g npm@next-7`
 
 ## Quickstart
 
 ```shell
-npm i
+npm i --legacy-peer-deps (https://stackoverflow.com/a/64702720/12091545)
 npm start
 ```
 
