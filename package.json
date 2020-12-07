@@ -14,7 +14,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "prettier:base": "./node_modules/.bin/prettier --config .prettierrc --write",
     "prettier": "npm run prettier:base -- '**/*.{js,ts,tsx,css,json,yaml,yml,md}'",
-    "template:init": "scripts/initializeProject.sh"
+    "template:init": "script/initializeProject.sh"
   },
   "author": "",
   "license": "ISC",
