@@ -37,7 +37,7 @@ function init_db {
 }
 
 function init_git {
-    git add .
+    git add -A
     git commit -am "Project initialized"
 }
 
