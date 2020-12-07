@@ -17,6 +17,7 @@ NPM v7
 ```shell
 npm i --legacy-peer-deps  # see: (https://stackoverflow.com/a/64702720/12091545)
 cd packages/core && npm i
+npm run db:init:local
 npm start
 ```
 
