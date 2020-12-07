@@ -15,7 +15,7 @@ NPM v7
 ## Quickstart
 
 ```shell
-npm i --legacy-peer-deps (in case you wonder why we need to use the flag - https://stackoverflow.com/a/64702720/12091545)
+npm i --legacy-peer-deps  # see: (https://stackoverflow.com/a/64702720/12091545)
 cd packages/core && npm i
 npm start
 ```
