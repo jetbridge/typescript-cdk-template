@@ -23,6 +23,9 @@ function rename {
 function install_deps {
     echo "Installing npm dependencies"
     npm install
+
+    echo "Installing core package dependencies"
+    cd packages/core && npm i
 }
 
 function init_db {
@@ -54,5 +57,4 @@ function finish {
 
 rename
 install_deps
-init_git
 finish
