@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -exuo pipefail
 
-rm -r -d .git
+rm -rf .git
 git init
 
 DEFAULT_NAME=`basename $PWD`
