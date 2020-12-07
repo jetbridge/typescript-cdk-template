@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -exuo pipefail
 
+rm -r -d .git
+git init
+
 DEFAULT_NAME=`basename $PWD`
 read -p "What is the name of your app? [$DEFAULT_NAME]: " name
 name=${name:-$DEFAULT_NAME}
