@@ -1,8 +1,6 @@
 #!/usr/bin/env bash
 set -exuo pipefail
 
-git init
-
 DEFAULT_NAME=`basename $PWD`
 read -p "What is the name of your app? [$DEFAULT_NAME]: " name
 name=${name:-$DEFAULT_NAME}
@@ -19,18 +17,25 @@ function rename {
     mv api.paw ${name}.paw
 }
 
-function install_deps {
+function install_deps_and_build {
     echo "Installing npm dependencies"
     npm i
 
     echo "Installing core package dependencies"
     cd packages/core && npm i
+
+    echo "Building core"
+    npm run build:core
 }
 
 function init_db {
-    echo "Creating postgres DB"
-    # create pg db
-    createdb -e $name || return 0
+    echo "Initializing DB"
+    npm run db:init:local
+}
+
+function init_git {
+    git add .
+    git commit -am "Project initialized"
 }
 
 function finish {
@@ -44,5 +49,7 @@ function finish {
 }
 
 rename
-install_deps
+install_deps_and_build
+init_db
+init_git
 finish

@@ -8,6 +8,7 @@
     "start:frontend": "cd packages/frontend && npm start",
     "start": "concurrently npm:start:*",
     "build:core": "cd packages/core && npm run build",
+    "db:init:local": "cd packages/core && npm run db:init:local",
     "deploy:backend": "npm run build:core && cd packages/backend && npm run deploy:dev",
     "deploy:backend:prod": "npm run build:core && cd packages/backend && npm run deploy:prod",
     "test": "echo \"Error: no test specified\" && exit 1",
