@@ -1,20 +1,13 @@
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm"
-import { IsEmail, IsNotEmpty } from "class-validator"
+import { Entity, Column } from "typeorm"
+import { IsEmail } from "class-validator"
+import { BaseModel } from "./BaseModel"
 
 @Entity("user_")
-export class User {
-  @PrimaryGeneratedColumn()
-  id: number
-
-  @Column()
-  @IsNotEmpty()
+export class User extends BaseModel {
+  @Column({ nullable: true })
   name: string
 
-  @Column()
+  @Column({ nullable: false })
   @IsEmail()
-  @IsNotEmpty()
   email: string
-
-  @Column()
-  password_encrypted: string
 }

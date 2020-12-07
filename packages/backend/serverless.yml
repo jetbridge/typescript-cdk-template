@@ -1,22 +1,80 @@
-service: jkv2-sls-demo
+service: mercury
+
+package:
+  individually: true
+
+custom:
+  stackName: ${self:service}-${self:provider.stage}
+  COGNITO_USER_POOL: ${self:custom.stackName}-user-pool
+  COGNITO_CLIENT: ${self:custom.stackName}-client
+  COGNITO_IDENTITY_POOL: ${self:custom.stackName}-identity-pool
+  COGNITO_APP_AUTH_ROLE: ${self:custom.stackName}-cognito-app-auth-role
+  COGNITO_APP_UNAUTH_ROLE: ${self:custom.stackName}-cognito-app-unauth-role
+  BASE_URL: ${env:BASE_URL, 'work-in-progress'}
+  CognitoAddCustomAttributes:
+    CognitoUserPoolIdOutputKey: mercuryUserPool
+    CognitoUserPoolClientIdOutputKey: mercuryUserPoolClient
+    CustomAttributes:
+      - AttributeDataType: String
+        DeveloperOnlyAttribute: False
+        Mutable: True
+        Name: "campaignId"
+        Required: False
+
+  db:
+    dbname: "mercury"
+    minCapacity: 2
+    maxCapacity: 16
+    secondsUntilAutoPause: 7200 # 2 hours; shouldn't be enabled on prod
+  bastion: # EC2 host to access database
+    sshKeyPairName: "${env:SSH_KEYPAIR, 'mercury-dev-2020'}" # set this to enable bastion ec2 instance
+    # sshKeyPairName: ""
+    alertEmails: "mischa@jetbridge.com" # get SNS notifications of alarms at this address
+    banner: https://ops.jetbridge.com/public/banner.txt
+    bootstrap: https://ops.jetbridge.com/public/bastion_bootstrap.sh
+    instanceType: t3a.nano
+    bannerEnabled: "true"
+    tcpForwardingEnabled: "true"
+    x11ForwardingEnabled: "false"
+    logRetentionInDays: 731
+  secrets:
+    prefix: "${self:service}/${self:provider.stage}"
+    rds: "${self:custom.secrets.prefix}/rds/credentials"
 
 provider:
   name: aws
   runtime: nodejs12.x
-
   stage: ${opt:stage, 'dev'}
-  region: ${opt:region, 'eu-west-1'}
-  profile: ${env:AWS_PROFILE, 'hrt'}
+  region: ${opt:region, 'us-east-1'}
+  profile: ${env:AWS_PROFILE, 'mercury-dev'}
+
+  environment:
+    STAGE: ${self:provider.stage}
+    AURORA_SECRET_ARN: ${self:custom.secrets.rds}
+    BASE_URL: ${self:custom.BASE_URL}
 
   httpApi:
     cors: true
     payload: "2.0"
+    authorizers:
+      mercuryAuthorizer:
+        identitySource: $request.header.Authorization
+        issuerUrl: "https://cognito-idp.#{AWS::Region}.amazonaws.com/#{mercuryUserPool}"
+        audience:
+          - Ref: mercuryUserPoolClient
   logs:
     httpApi: true
   tracing:
     apiGateway: true
     lambda: true
   iamRoleStatements:
+    - Effect: Allow
+      Action: secretsmanager:GetSecretValue
+      Resource:
+        # twilio secrets
+        - "arn:aws:secretsmanager:#{AWS::Region}:#{AWS::AccountId}:secret:mercury/twilio/*"
+        # RDS secrets
+        - "arn:aws:secretsmanager:#{AWS::Region}:#{AWS::AccountId}:secret:${self:custom.secrets.rds}*"
     # aurora data-api
     - Effect: Allow
       Action:
@@ -26,27 +84,29 @@ provider:
         - rds-data:RollbackTransaction
         - rds-data:CommitTransaction
         - rds-data:BeginTransaction
-      Resource: "arn:aws:rds:#{AWS::Region}:#{AWS::AccountId}:cluster:lemmy-prod"
-    - Effect: Allow
-      Action: secretsmanager:GetSecretValue
-      Resource:
-        # hardcoded to use lemmy db for now
-        - "arn:aws:secretsmanager:eu-west-1:736338821564:secret:rds-db-credentials/cluster-7556WO6SLQ3MHNOKFVGYVYKJOQ/postgres-TL9sG8"
+      Resource: "arn:aws:rds:#{AWS::Region}:#{AWS::AccountId}:cluster:mercury-*"
 
 plugins:
   - serverless-plugin-typescript
   - serverless-offline
-  - serverless-plugin-optimize
   - serverless-pseudo-parameters
   - serverless-dotenv-plugin
+  - serverless-plugin-optimize
+  # - serverless-cognito-add-custom-attributes
   # - serverless-layers
 
 functions:
-  listUsers:
-    handler: src/api/user.list
+  listUsers: # Paginated list of users
+    handler: src/api/listUsers.listUsers
     events:
-      - httpApi: "GET /user"
-  createUser:
-    handler: src/api/user.create
-    events:
-      - httpApi: "POST /user"
+      - httpApi:
+          method: GET
+          path: /user
+          integration: lambda
+          # authorizer: mercuryAuthorizer # Remove for sls offlie to work
+
+resources:
+  - ${file(cloudformation/vpc.yml)}
+  - ${file(cloudformation/aurora-serverless.yml)}
+  - ${file(cloudformation/bastion.yml)}
+  - ${file(cloudformation/cognito.yml)}

@@ -1,4 +1,4 @@
-import { Database } from "./db/Connection"
+import { Database } from "jkv2-core"
 
 // xray
 const AWSXRay = require("aws-xray-sdk")

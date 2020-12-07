@@ -1,0 +1,114 @@
+Conditions:
+  IsProd: !Equals ["${self:provider.stage}", "prod"]
+
+Resources:
+  # DB login secret
+  RDSInstanceSecret:
+    Type: AWS::SecretsManager::Secret
+    Properties:
+      Description: "RDS master admin"
+      Name: ${self:custom.secrets.rds}
+      GenerateSecretString:
+        SecretStringTemplate: '{"username": "dbadmin"}'
+        GenerateStringKey: "password"
+        PasswordLength: 16
+        ExcludeCharacters: '"@/\%:\\;'
+
+  SecretRDSInstanceAttachment:
+    Type: AWS::SecretsManager::SecretTargetAttachment
+    Properties:
+      SecretId:
+        Ref: RDSInstanceSecret
+      TargetId:
+        Ref: DBCluster
+      TargetType: AWS::RDS::DBCluster
+
+  # aurora-postgresql serverless DB
+  DBCluster:
+    Type: AWS::RDS::DBCluster
+    Properties:
+      DeletionProtection: !If [IsProd, true, false]
+      Engine: aurora-postgresql
+      EngineMode: serverless
+      EnableHttpEndpoint: true
+      ScalingConfiguration:
+        AutoPause: !If [IsProd, false, true]
+        MinCapacity: ${self:custom.db.minCapacity}
+        MaxCapacity: ${self:custom.db.maxCapacity}
+        SecondsUntilAutoPause: ${self:custom.db.secondsUntilAutoPause}
+
+      DatabaseName: ${self:custom.db.dbname}
+      DBClusterIdentifier: "#{AWS::StackName}"
+      MasterUsername: !Join ["", ["{{resolve:secretsmanager:", !Ref RDSInstanceSecret, ":SecretString:username}}"]]
+      MasterUserPassword: !Join ["", ["{{resolve:secretsmanager:", !Ref RDSInstanceSecret, ":SecretString:password}}"]]
+      VpcSecurityGroupIds:
+        - "Fn::GetAtt": DBSecurityGroup.GroupId
+      DBSubnetGroupName: !Ref DBSubnetGroup
+
+  # VPC security group
+  DBSecurityGroup:
+    Type: AWS::EC2::SecurityGroup
+    Properties:
+      GroupDescription: Ingress for RDS Instance
+      VpcId:
+        Ref: VPC
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 5432
+          ToPort: 5432
+          # give access to our bastion host
+          SourceSecurityGroupId: !Ref BastionSecurityGroup
+
+  # VPC subnet
+  DBSubnetA:
+    Type: AWS::EC2::Subnet
+    Properties:
+      Tags:
+        - Key: Name
+          Value: "#{AWS::StackName} DB"
+      VpcId:
+        Ref: VPC
+      AvailabilityZone: "#{AWS::Region}a"
+      CidrBlock: "10.0.6.0/24"
+  DBSubnetB:
+    Type: AWS::EC2::Subnet
+    Properties:
+      Tags:
+        - Key: Name
+          Value: "#{AWS::StackName} DB"
+      VpcId:
+        Ref: VPC
+      AvailabilityZone: "#{AWS::Region}b"
+      CidrBlock: "10.0.7.0/24"
+  DBSubnetC:
+    Type: AWS::EC2::Subnet
+    Properties:
+      Tags:
+        - Key: Name
+          Value: "#{AWS::StackName} DB"
+      VpcId:
+        Ref: VPC
+      AvailabilityZone: "#{AWS::Region}c"
+      CidrBlock: "10.0.8.0/24"
+  DBSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupDescription: "Database"
+      SubnetIds:
+        - Ref: DBSubnetA
+        - Ref: DBSubnetB
+        - Ref: DBSubnetC
+
+Outputs:
+  AuroraClusterARN:
+    Description: Aurora Cluster ARN
+    Value: !Join [":", ["arn:aws:rds:#{AWS::Region}:#{AWS::AccountId}:cluster", !Ref DBCluster]]
+
+  AuroraSecretARN:
+    Description: Aurora Secret ARN
+    Value: !Ref RDSInstanceSecret
+
+  GetDBSecretsCommand:
+    Description: Get DB secret command line
+    Condition: BastionEnabled
+    Value: "aws secretsmanager get-secret-value --secret-id ${self:custom.secrets.rds}"
