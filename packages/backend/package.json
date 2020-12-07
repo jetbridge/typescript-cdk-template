@@ -7,10 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
     "start": "sls offline",
-    "deploy": "npm run deploy:dev",
-    "deploy:dev": "AWS_PROFILE=mercury-dev SSH_KEYPAIR=mercury-dev-2020 BASE_URL=https://lh2yc6beje.execute-api.us-east-1.amazonaws.com sls deploy -s dev",
-    "deploy:marie-ccsf": "NODE_ENV=production AWS_PROFILE=mercury-prod SSH_KEYPAIR=mercury-prod-2020 BASE_URL=https://egtxueipo0.execute-api.us-east-1.amazonaws.com sls deploy -s marie-ccsf",
-    "deploy:pinto-d7": "NODE_ENV=production AWS_PROFILE=mercury-prod SSH_KEYPAIR=mercury-prod-2020 BASE_URL=https://6m5i5qg3s9.execute-api.us-east-1.amazonaws.com sls deploy -s pinto-d7",
+    "deploy:dev": "sls deploy -s dev",
     "lint": "eslint src/**/*.ts",
     "update:sls": "npm install -d serverless@latest serverless-offline@latest serverless-plugin-optimize@latest serverless-plugin-typescript@latest serverless-layers@latest serverless-dotenv-plugin@latest"
   },

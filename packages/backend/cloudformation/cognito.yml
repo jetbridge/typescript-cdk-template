@@ -1,6 +1,6 @@
 Resources:
   # Cognito - User pool
-  mercuryUserPool:
+  jkv2UserPool:
     Type: AWS::Cognito::UserPool
     Properties:
       UserPoolName: ${self:custom.COGNITO_USER_POOL}
@@ -23,7 +23,7 @@ Resources:
           Mutable: true
           AttributeDataType: String
   # Cognito - Client
-  mercuryUserPoolClient:
+  jkv2UserPoolClient:
     Type: AWS::Cognito::UserPoolClient
     Properties:
       ClientName: ${self:custom.COGNITO_CLIENT}
@@ -37,7 +37,7 @@ Resources:
         - profile
         - aws.cognito.signin.user.admin
       UserPoolId:
-        Ref: mercuryUserPool
+        Ref: jkv2UserPool
       ExplicitAuthFlows:
         - ALLOW_USER_SRP_AUTH
         - ALLOW_REFRESH_TOKEN_AUTH
@@ -47,22 +47,22 @@ Resources:
       CallbackURLs:
         - https://localhost:3000
   # Cognito - Identity
-  mercuryIdentityPool:
+  jkv2IdentityPool:
     Type: AWS::Cognito::IdentityPool
     Properties:
       IdentityPoolName: ${self:custom.COGNITO_IDENTITY_POOL}
       AllowUnauthenticatedIdentities: false
       CognitoIdentityProviders:
         - ClientId:
-            Ref: mercuryUserPoolClient
+            Ref: jkv2UserPoolClient
           ProviderName:
-            Fn::GetAtt: [mercuryUserPool, ProviderName]
+            Fn::GetAtt: [jkv2UserPool, ProviderName]
   # Cognito - Roles
   CognitoIdentityPoolRoles:
     Type: AWS::Cognito::IdentityPoolRoleAttachment
     Properties:
       IdentityPoolId:
-        Ref: mercuryIdentityPool
+        Ref: jkv2IdentityPool
       Roles:
         authenticated:
           Fn::GetAtt: [CognitoAuthRole, Arn]
@@ -85,7 +85,7 @@ Resources:
             Condition:
               StringEquals:
                 "cognito-identity.amazonaws.com:aud":
-                  Ref: mercuryIdentityPool
+                  Ref: jkv2IdentityPool
               "ForAnyValue:StringLike":
                 "cognito-identity.amazonaws.com:amr": authenticated
       Policies:
@@ -121,7 +121,7 @@ Resources:
             Condition:
               StringEquals:
                 "cognito-identity.amazonaws.com:aud":
-                  Ref: mercuryIdentityPool
+                  Ref: jkv2IdentityPool
               "ForAnyValue:StringLike":
                 "cognito-identity.amazonaws.com:amr": unauthenticated
       Policies:

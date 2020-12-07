@@ -4,14 +4,7 @@ import { getConnectionOptions } from "./src/db/Connection"
 const connectionOptions = getConnectionOptions()
 
 module.exports = {
-    // type: "postgres",
-    // host: "localhost",
-    // port: 5432,
-
-    // database: "mercury",
-
     ...connectionOptions,
-
     entities: ["src/model/*.ts"],
     migrations: ["src/migrations/*.ts"],
     cli: {

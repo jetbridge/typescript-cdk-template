@@ -1,4 +1,4 @@
-service: mercury
+service: jkv2
 
 package:
   individually: true
@@ -12,22 +12,16 @@ custom:
   COGNITO_APP_UNAUTH_ROLE: ${self:custom.stackName}-cognito-app-unauth-role
   BASE_URL: ${env:BASE_URL, 'work-in-progress'}
   CognitoAddCustomAttributes:
-    CognitoUserPoolIdOutputKey: mercuryUserPool
-    CognitoUserPoolClientIdOutputKey: mercuryUserPoolClient
-    CustomAttributes:
-      - AttributeDataType: String
-        DeveloperOnlyAttribute: False
-        Mutable: True
-        Name: "campaignId"
-        Required: False
+    CognitoUserPoolIdOutputKey: jkv2UserPool
+    CognitoUserPoolClientIdOutputKey: jkv2UserPoolClient
 
   db:
-    dbname: "mercury"
+    dbname: "jkv2"
     minCapacity: 2
     maxCapacity: 16
     secondsUntilAutoPause: 7200 # 2 hours; shouldn't be enabled on prod
   bastion: # EC2 host to access database
-    sshKeyPairName: "${env:SSH_KEYPAIR, 'mercury-dev-2020'}" # set this to enable bastion ec2 instance
+    sshKeyPairName: "${env:SSH_KEYPAIR, 'jkv2-dev-2020'}" # set this to enable bastion ec2 instance
     # sshKeyPairName: ""
     alertEmails: "mischa@jetbridge.com" # get SNS notifications of alarms at this address
     banner: https://ops.jetbridge.com/public/banner.txt
@@ -46,7 +40,7 @@ provider:
   runtime: nodejs12.x
   stage: ${opt:stage, 'dev'}
   region: ${opt:region, 'us-east-1'}
-  profile: ${env:AWS_PROFILE, 'mercury-dev'}
+  profile: ${env:AWS_PROFILE, 'jkv2-dev'}
 
   environment:
     STAGE: ${self:provider.stage}
@@ -57,11 +51,11 @@ provider:
     cors: true
     payload: "2.0"
     authorizers:
-      mercuryAuthorizer:
+      jkv2Authorizer:
         identitySource: $request.header.Authorization
-        issuerUrl: "https://cognito-idp.#{AWS::Region}.amazonaws.com/#{mercuryUserPool}"
+        issuerUrl: "https://cognito-idp.#{AWS::Region}.amazonaws.com/#{jkv2UserPool}"
         audience:
-          - Ref: mercuryUserPoolClient
+          - Ref: jkv2UserPoolClient
   logs:
     httpApi: true
   tracing:
@@ -71,8 +65,6 @@ provider:
     - Effect: Allow
       Action: secretsmanager:GetSecretValue
       Resource:
-        # twilio secrets
-        - "arn:aws:secretsmanager:#{AWS::Region}:#{AWS::AccountId}:secret:mercury/twilio/*"
         # RDS secrets
         - "arn:aws:secretsmanager:#{AWS::Region}:#{AWS::AccountId}:secret:${self:custom.secrets.rds}*"
     # aurora data-api
@@ -84,7 +76,7 @@ provider:
         - rds-data:RollbackTransaction
         - rds-data:CommitTransaction
         - rds-data:BeginTransaction
-      Resource: "arn:aws:rds:#{AWS::Region}:#{AWS::AccountId}:cluster:mercury-*"
+      Resource: "arn:aws:rds:#{AWS::Region}:#{AWS::AccountId}:cluster:jkv2-*"
 
 plugins:
   - serverless-plugin-typescript
@@ -92,8 +84,6 @@ plugins:
   - serverless-pseudo-parameters
   - serverless-dotenv-plugin
   - serverless-plugin-optimize
-  # - serverless-cognito-add-custom-attributes
-  # - serverless-layers
 
 functions:
   listUsers: # Paginated list of users
@@ -103,7 +93,7 @@ functions:
           method: GET
           path: /user
           integration: lambda
-          # authorizer: mercuryAuthorizer # Remove for sls offlie to work
+          # authorizer: jkv2Authorizer # Should be commented for sls offlie to work
 
 resources:
   - ${file(cloudformation/vpc.yml)}

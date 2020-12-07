@@ -54,7 +54,7 @@ export function getConnectionOptions(): ConnectionOptions {
     else {
         logging = ["error"]
     }
-    console.log(`LOCAL_DB: ${process.env.USE_LOCAL_DB}`)
+
     if (process.env.USE_LOCAL_DB) {
         console.debug("Using local database...")
         // local DB
@@ -68,13 +68,19 @@ export function getConnectionOptions(): ConnectionOptions {
             logging: logging, // log queries
         }
     } else {
+        console.debug("Using remote database...")
+
+        if (!process.env.RDS_SECRET_ARN || !process.env.RDS_ARN) {
+            console.error("RDS_SECRET_ARN or RDS_ARN not defined")
+            throw new Error("Couldn't get RDS ARNs from environment.")
+        }
         // aurora sls
         connectionOptions = {
             entities: ALL_ENTITIES,
             type: "aurora-data-api-pg",
-            database: "mercury",
-            secretArn: "arn:aws:secretsmanager:us-east-1:423516771215:secret:mercury/marie-ccsf/rds/credentials-J9F7N7",
-            resourceArn: "arn:aws:rds:us-east-1:423516771215:cluster:mercury-marie-ccsf",
+            database: "jkv2",
+            secretArn: process.env.RDS_SECRET_ARN,
+            resourceArn: process.env.RDS_ARN,
             region: "us-east-1",
             logging: logging, // log queries
             name: CONNECTION_NAME,
