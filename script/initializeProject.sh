@@ -28,7 +28,7 @@ function install_deps_and_build {
     cd packages/core && npm i
 
     echo "Building core"
-    npm run build:core
+    npm run build
 }
 
 function init_db {
