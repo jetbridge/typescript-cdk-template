@@ -13,7 +13,7 @@ function rename {
     subst="perl -i -pe s/jkv2/$name/g"
 
     # replace TEMPLATE string in files with $name
-    find TEMPLATE -type f -exec $subst {} \;
+    find . -type f -exec $subst {} \;
     $subst package.json
 
     # rename files
@@ -54,6 +54,5 @@ function finish {
 
 rename
 install_deps
-init_db
 init_git
 finish
