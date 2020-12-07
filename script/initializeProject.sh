@@ -22,10 +22,10 @@ function rename {
 
 function install_deps_and_build {
     echo "Installing npm dependencies"
-    npm i
+    npm i --legacy-peer-deps  # see: (https://stackoverflow.com/a/64702720/12091545)
 
     echo "Installing core package dependencies"
-    cd packages/core && npm i
+    cd packages/core && npm i --legacy-peer-deps
 
     echo "Building core"
     npm run build

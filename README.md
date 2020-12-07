@@ -15,10 +15,8 @@ NPM v7
 ## Quickstart
 
 ```shell
-npm i --legacy-peer-deps  # see: (https://stackoverflow.com/a/64702720/12091545)
-cd packages/core && npm i
-npm run db:init:local
-npm start
+git clone --depth=1 --branch=develop git@github.com:jetbridge/jkv2-ts-template.git myapp
+npm run template:init
 ```
 
 `npm start` uses [concurrently](https://www.npmjs.com/package/concurrently) to launch core, backend, and frontend simultaneously.
