@@ -21,6 +21,10 @@ npm run template:init
 
 `npm start` uses [concurrently](https://www.npmjs.com/package/concurrently) to launch core, backend, and frontend simultaneously.
 
+## Syllabus
+- [Developing against remote](#deploying-backend-and-hooking-it-up-to-the-frontend)
+- [Developing locally](#developing-locally)
+
 ## Development
 Developing against remote dev environment is recommended. As there it'll be possible to use Cognito authorizers and talk to the DB using Aurora data API(important, because things that work on localhost may not work the same with it).
 
@@ -60,6 +64,21 @@ Go to `.env` in `packages/frontend` and populate it:
 
 `REACT_APP_COGNITO_USER_POOL_APP_CLIENT_ID`:
 ![](docs/how_to_get_cognito_app_client_id.png)
+
+### Developing locally
+
+#### Backend, initializing DB
+Populate `packages/core/.env.local` with:
+```
+USE_LOCAL_DB = true
+DB_NAME = jkv2 # YOUR_APP_NAME_HERE
+DB_HOST = "localhost"
+```
+
+Initialize db by running `npm run db:init:local` in `packages/core`
+
+#### Frontend
+Using API client provided by Amplify for local development turns out to be troublesome. Requests via axios should work.
 
 
 ## Recommended Reading

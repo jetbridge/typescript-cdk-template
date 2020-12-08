@@ -1,6 +1,5 @@
 import React from "react"
 import ReactDOM from "react-dom"
-import AppWithoutAuth from "./AppWithoutAuth"
 import * as serviceWorker from "./serviceWorker"
 import AppWithAuth from "./AppWithAuth"
 

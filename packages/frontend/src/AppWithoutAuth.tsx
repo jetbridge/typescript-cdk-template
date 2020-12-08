@@ -10,7 +10,6 @@ Amplify.configure({
   API: {
     endpoints: [
       {
-        name: process.env.REACT_APP_API_NAME,
         endpoint: process.env.REACT_APP_BASE_URL,
       },
     ],
