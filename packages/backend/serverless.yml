@@ -21,8 +21,8 @@ custom:
     maxCapacity: 16
     secondsUntilAutoPause: 7200 # 2 hours; shouldn't be enabled on prod
   bastion: # EC2 host to access database
-    sshKeyPairName: "${env:SSH_KEYPAIR, 'jkv2-dev-2020'}" # set this to enable bastion ec2 instance
-    # sshKeyPairName: ""
+    # sshKeyPairName: "${env:SSH_KEYPAIR, 'jkv2-dev-2020'}" # set this to enable bastion ec2 instance
+    sshKeyPairName: ""
     alertEmails: "mischa@jetbridge.com" # get SNS notifications of alarms at this address
     banner: https://ops.jetbridge.com/public/banner.txt
     bootstrap: https://ops.jetbridge.com/public/bastion_bootstrap.sh
@@ -44,8 +44,10 @@ provider:
 
   environment:
     STAGE: ${self:provider.stage}
-    AURORA_SECRET_ARN: ${self:custom.secrets.rds}
+    AURORA_SECRET_ARN: "arn:aws:secretsmanager:#{AWS::Region}:#{AWS::AccountId}:secret:${self:custom.secrets.rds}"
     BASE_URL: ${self:custom.BASE_URL}
+    AURORA_ARN: "arn:aws:rds:#{AWS::Region}:#{AWS::AccountId}:cluster:${self:custom.stackName}"
+    AURORA_REGION: ${self:provider.region}
 
   httpApi:
     cors: true
@@ -93,7 +95,7 @@ functions:
           method: GET
           path: /user
           integration: lambda
-          # authorizer: jkv2Authorizer # Should be commented for sls offlie to work
+          # authorizer: jkv2Authorizer # Should be commented out for sls offlie to work
 
 resources:
   - ${file(cloudformation/vpc.yml)}

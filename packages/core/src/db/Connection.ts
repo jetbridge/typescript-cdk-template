@@ -69,9 +69,8 @@ export function getConnectionOptions(): ConnectionOptions {
         }
     } else {
         console.debug("Using remote database...")
-
-        if (!process.env.RDS_SECRET_ARN || !process.env.RDS_ARN) {
-            console.error("RDS_SECRET_ARN or RDS_ARN not defined")
+        if (!process.env.AURORA_SECRET_ARN || !process.env.AURORA_ARN || !process.env.AURORA_REGION) {
+            console.error("AURORA_SECRET_ARN or AURORA_ARN or AURORA_REGION not defined")
             throw new Error("Couldn't get RDS ARNs from environment.")
         }
         // aurora sls
@@ -79,9 +78,9 @@ export function getConnectionOptions(): ConnectionOptions {
             entities: ALL_ENTITIES,
             type: "aurora-data-api-pg",
             database: "jkv2",
-            secretArn: process.env.RDS_SECRET_ARN,
-            resourceArn: process.env.RDS_ARN,
-            region: "us-east-1",
+            secretArn: process.env.AURORA_SECRET_ARN,
+            resourceArn: process.env.AURORA_ARN,
+            region: process.env.AURORA_REGION,
             logging: logging, // log queries
             name: CONNECTION_NAME,
             namingStrategy: new SnakeNamingStrategy(),

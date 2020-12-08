@@ -21,6 +21,47 @@ npm run template:init
 
 `npm start` uses [concurrently](https://www.npmjs.com/package/concurrently) to launch core, backend, and frontend simultaneously.
 
+## Development
+Developing against remote dev environment is recommended. As there it'll be possible to use Cognito authorizers and talk to the DB using Aurora data API(important, because things that work on localhost may not work the same with it).
+
+### Deploying backend and hooking it up to the frontend
+`cd packages/backend && sls deploy`
+
+#### Initializing remote DB
+Populate `packages/core/.env` with the following:
+
+`RDS_ARN`:
+![](docs/how_to_get_rds_arn.png)
+
+`RDS_SECRET_ARN`:
+![](docs/how_to_get_rds_secret_arn.png)
+
+`RDS_REGION`: the same region where your app was deployed. `us-east-1` by default
+
+Then in `packages/core` run `npm run db:init:remote:dev` which will migrate and seed the database.
+You may need to add `export AWS_PROFILE=<YOUR_PROFILE_TO_DEPLOY>` line before the actual command for it to work.
+
+#### Hooking up frontend
+Go to `.env` in `packages/frontend` and populate it:
+
+`REACT_APP_BASE_URL`: Copy the API URL in the following format: `https://cb8ak40phc.execute-api.us-east-1.amazonaws.com`
+
+`REACT_APP_API_NAME`: "${stageName}-${APP_NAME}"  # e.g. dev-jkv2
+
+`REACT_APP_API_REGION`: the same region where your app was deployed.
+
+`REACT_APP_COGNITO_IDENTITY_POOL_ID`:
+![](docs/how_to_get_cognito_identity_pool_id.png)
+
+`REACT_APP_COGNITO_REGION`, `REACT_APP_COGNITO_IDENTITY_POOL_REGION`: the same region where your app was deployed.
+
+`REACT_APP_COGNITO_USER_POOL_ID`: 
+![](docs/how_to_get_cognito_pool_id.png)
+
+`REACT_APP_COGNITO_USER_POOL_APP_CLIENT_ID`:
+![](docs/how_to_get_cognito_app_client_id.png)
+
+
 ## Recommended Reading
 
 These are some neat modules I found that are worth at least looking at. There very well may be better options out there, these are just some random ones I tried with this project:

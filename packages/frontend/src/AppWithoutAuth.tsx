@@ -4,8 +4,20 @@ import { theme } from "./theme"
 import { BrowserRouter } from "react-router-dom"
 import Routes from "./route"
 import useGlobalCSS from "./theme/GlobalCSS"
+import Amplify from "aws-amplify"
 
-const App: React.FC = () => {
+Amplify.configure({
+  API: {
+    endpoints: [
+      {
+        name: process.env.REACT_APP_API_NAME,
+        endpoint: process.env.REACT_APP_BASE_URL,
+      },
+    ],
+  },
+})
+
+const AppWithoutAuth: React.FC = () => {
   useGlobalCSS()
 
   return (
@@ -18,4 +30,4 @@ const App: React.FC = () => {
   )
 }
 
-export default App
+export default AppWithoutAuth

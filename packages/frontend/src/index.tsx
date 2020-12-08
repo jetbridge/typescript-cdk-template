@@ -1,11 +1,12 @@
 import React from "react"
 import ReactDOM from "react-dom"
-import App from "./App"
+import AppWithoutAuth from "./AppWithoutAuth"
 import * as serviceWorker from "./serviceWorker"
+import AppWithAuth from "./AppWithAuth"
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <AppWithAuth />
   </React.StrictMode>,
   document.getElementById("root")
 )
