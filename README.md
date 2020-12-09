@@ -78,7 +78,12 @@ DB_HOST = "localhost"
 Initialize db by running `npm run db:init:local` in `packages/core`
 
 #### Frontend
-Using API client provided by Amplify for local development turns out to be troublesome. Requests via axios should work.
+Populate `packages/frontend/.env.local` with following contents:
+
+```
+REACT_APP_BASE_URL = "http://localhost:3000/dev"
+REACT_APP_USE_APP_WITHOUT_AUTH = true
+```
 
 
 ## Recommended Reading
