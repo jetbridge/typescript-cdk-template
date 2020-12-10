@@ -17,6 +17,7 @@
     "react-router-dom": "latest"
   },
   "devDependencies": {
+    "@cypress/webpack-preprocessor": "^5.5.0",
     "@storybook/addon-actions": "latest",
     "@storybook/addon-centered": "latest",
     "@storybook/addon-docs": "latest",
@@ -40,6 +41,7 @@
     "babel-eslint": "10.1.0",
     "babel-jest": "^24.9.0",
     "babel-loader": "8.1.0",
+    "cypress": "^6.1.0",
     "eslint": "^6.6.0",
     "eslint-plugin-react-app": "latest",
     "husky": "latest",
@@ -47,6 +49,7 @@
     "lint-staged": "latest",
     "prettier": "latest",
     "react-docgen-typescript-loader": "latest",
+    "ts-loader": "^8.0.11",
     "typescript": "^4.0.5",
     "webpack": "4.42.0",
     "webpack-dev-server": "3.10.3"
