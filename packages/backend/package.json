@@ -4,7 +4,7 @@
   "description": "",
   "main": "build/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "export DB_HOST='localhost' DB_NAME='jkv2' USE_TEST_DB=true && jest -i",
     "build": "tsc",
     "start": "sls offline",
     "deploy:dev": "sls deploy -s dev",
@@ -26,6 +26,7 @@
     "pg": "^7.3.0",
     "reflect-metadata": "^0.1.10",
     "serverless": "^2.3.0",
+    "tslib": "^1.11.2",
     "typeorm": "0.2.25",
     "typeorm-aurora-data-api-driver": "^1.4.0"
   },
@@ -44,6 +45,10 @@
     "serverless-pseudo-parameters": "^2.5.0",
     "ts-jest": "^26.4.4",
     "ts-node": "3.3.0",
+    "typeorm-test-transactions": "^1.14.1",
     "typescript": "4.0.2"
+  },
+  "resolutions": {
+    "tslib": "1.11.2"
   }
 }

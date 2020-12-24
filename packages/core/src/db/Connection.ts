@@ -6,10 +6,10 @@ import * as pg from "pg"
 import { LoggerOptions } from "typeorm/logger/LoggerOptions"
 
 // instrument queries with xray
-if (!process.env.USE_LOCAL_DB) {
-    const AWSXRay = require("aws-xray-sdk")
-    AWSXRay.capturePostgres(pg)
-}
+// if (!process.env.USE_LOCAL_DB) {
+//     const AWSXRay = require("aws-xray-sdk")
+//     AWSXRay.capturePostgres(pg)
+// }
 
 // list of entities from core go here
 const ALL_ENTITIES = [User]
@@ -67,7 +67,24 @@ export function getConnectionOptions(): ConnectionOptions {
             namingStrategy: new SnakeNamingStrategy(),
             logging: logging, // log queries
         }
-    } else {
+    }
+    else if (process.env.USE_TEST_DB) {
+        console.debug("Using test database")
+
+        // test DB
+        connectionOptions = {
+            entities: ALL_ENTITIES,
+            type: `postgres`,
+            port: 5432,
+            database: "jkv2_test",
+            synchronize: true,
+            dropSchema: true,  // dropDB with every connection
+            host: "localhost",
+            namingStrategy: new SnakeNamingStrategy(),
+            logging: true,
+        }
+    }
+    else {
         console.debug("Using remote database...")
         if (!process.env.AURORA_SECRET_ARN || !process.env.AURORA_ARN || !process.env.AURORA_REGION) {
             console.error("AURORA_SECRET_ARN or AURORA_ARN or AURORA_REGION not defined")

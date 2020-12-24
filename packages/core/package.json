@@ -11,6 +11,7 @@
     "db:init:local": "npm run db:dropcreatedb && npm run db:migrate && npm run seed:run",
     "db:init:remote:dev": "npm run db:migrate && npm run seed:run",
     "db:dropcreatedb": "dropdb jkv2 --if-exists && createdb jkv2",
+    "db:dropcreatedb:test": "dropdb jkv2 --if-exists && createdb jkv2_test",
     "db:migrate:generate": "ts-node ./node_modules/typeorm/cli.js migration:generate -n $name",
     "db:migrate": "ts-node ./node_modules/typeorm/cli.js migration:run",
     "seed:config": "ts-node ./node_modules/typeorm-seeding/dist/cli.js config",
