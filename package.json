@@ -1,0 +1,52 @@
+{
+  "name": "demo",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "start:repo": "cd packages/repo && npm start",
+    "start:backend": "cd packages/backend && npm start",
+    "start:frontend": "cd packages/frontend && npm start",
+    "start": "concurrently npm:start:*",
+    "build:repo": "cd packages/repo && npm run build",
+    "db:init:local": "cd packages/repo && npm run db:init:local",
+    "deploy:backend": "npm run build:repo && cd packages/backend && npm run deploy:dev",
+    "deploy:backend:prod": "npm run build:repo && cd packages/backend && npm run deploy:prod",
+    "deploy:infra": "cd packages/infra && cdk deploy",
+    "prettier:base": "./node_modules/.bin/prettier --config .prettierrc --write",
+    "prettier": "npm run prettier:base -- '**/*.{js,ts,tsx,css,json,yaml,yml,md}'",
+    "test": "echo ok"
+  },
+  "author": "",
+  "license": "MIT",
+  "workspaces": [
+    "packages/*"
+  ],
+  "dependencies": {
+    "@jetkit/cdk": "^0.0.31",
+    "concurrently": "^5.3.0",
+    "typeorm": "^0.2.32"
+  },
+  "devDependencies": {
+    "@tsconfig/node14": "^1.0.0",
+    "@typescript-eslint/eslint-plugin": "^4.21.0",
+    "@typescript-eslint/parser": "^4.21.0",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.23.0",
+    "husky": "^4.3.0",
+    "lint-staged": "^10.4.0",
+    "prettier": "^2.1.2",
+    "typescript": "^4.2.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "{*.{ts,js},!(node*)**/*.{ts,tsx,js,jsx}}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  }
+}
