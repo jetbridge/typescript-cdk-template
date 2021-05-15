@@ -1,4 +1,6 @@
-import { CorsHttpMethod, Duration, JetKitCdkApp } from "@jetkit/cdk";
+import { CorsHttpMethod, Duration, JetKitCdkApp } from "@jetkit/cdk"
+// demo
+import { AlbumApi, topSongsHandler } from "@jetkit/cdk"
 
 export const app = new JetKitCdkApp({
   config: {
@@ -10,4 +12,7 @@ export const app = new JetKitCdkApp({
       },
     },
   },
-});
+})
+
+// a list of resources we would like infrastructure generated for
+export const stackResources = [AlbumApi, topSongsHandler]
