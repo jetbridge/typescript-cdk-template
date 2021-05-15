@@ -1,4 +1,4 @@
-import { APIEvent, ApiView, ApiViewBase, apiViewHandler, BaseModel, RequestHandler, Route, SubRoute } from "@jetkit/cdk"
+import { ApiEvent, ApiView, ApiViewBase, apiViewHandler, BaseModel, RequestHandler, Route, SubRoute } from "@jetkit/cdk"
 import { Column, Entity } from "typeorm"
 
 const commonOpts = {
