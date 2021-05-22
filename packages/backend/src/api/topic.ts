@@ -1,4 +1,13 @@
-import { ApiEvent, ApiView, ApiViewBase, apiViewHandler, BaseModel, RequestHandler, Route, SubRoute } from "@jetkit/cdk"
+import {
+  ApiEvent,
+  ApiView,
+  ApiViewBase,
+  apiViewHandler,
+  BaseModel,
+  RequestHandler,
+  Lambda,
+  SubRoute,
+} from "@jetkit/cdk"
 import { Column, Entity } from "typeorm"
 
 const commonOpts = {
@@ -44,7 +53,7 @@ export async function queryHandler(event: ApiEvent) {
   })
 }
 // define route & lambda
-Route({
+Lambda({
   path: "/blargle",
   ...commonOpts,
 })(queryHandler)
