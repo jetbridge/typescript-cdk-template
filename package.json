@@ -7,6 +7,7 @@
   "scripts": {
     "start:repo": "cd packages/repo && npm start",
     "start:backend": "cd packages/backend && npm start",
+    "start:api": "cd packages/infra && npm run start",
     "start": "concurrently npm:start:*",
     "build:repo": "cd packages/repo && npm run build",
     "build:backend": "cd packages/backend && npm run build",

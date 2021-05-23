@@ -20,14 +20,21 @@ Peruse the [@jetkit/cdk README](https://github.com/jetbridge/jetkit-cdk#readme) 
     npm i
     ```
 
-1. Start developing:
-
-    ```shell
-    npm run start
-    ```
-
-1. Deploy backend and infrastructure:
+2. Deploy backend and infrastructure:
 
     ```shell
     npm run deploy:infra
     ```
+
+3. Run local dev server:
+
+   [More info](https://aws.amazon.com/blogs/compute/better-together-aws-sam-and-aws-cdk/).
+
+   * Install [aws-sam-cli-beta-cdk](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-cdk-getting-started.html)
+      *  macOS: `brew install aws-sam-cli-beta-cdk`
+
+   * Run dev server and watch for changes:
+
+   * ```shell
+      npm run start
+      ```

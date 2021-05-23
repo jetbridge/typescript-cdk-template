@@ -6,6 +6,7 @@
     "build": "tsc",
     "watch": "tsc -w",
     "test": "jest",
+    "start": "sam-beta-cdk local start-api -n locals.json --warm-containers EAGER",
     "cdk": "cdk"
   },
   "devDependencies": {
