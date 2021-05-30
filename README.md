@@ -10,7 +10,7 @@ Want to develop serverless applications with TypeScript on AWS? This is the proj
 
 ## Quickstart
 
-Peruse the [@jetkit/cdk README](https://github.com/jetbridge/jetkit-cdk#readme) and [documentation](https://www.jetkit.dev/).
+Peruse the [@jetkit/cdk README](https://github.com/jetbridge/jetkit-cdk#readme) and [documentation](https://www.jetkit.dev/). There is a [blog article overview](https://spiegelmock.com/2021/05/29/frameworkless-web-applications-aws-cdk/).
 
 1. [Use this template to start a new repo](https://github.com/jetbridge/jkv2-ts-template/generate).
 1. Install dependencies:
