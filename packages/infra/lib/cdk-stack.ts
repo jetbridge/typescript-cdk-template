@@ -19,6 +19,14 @@ export class InfraStack extends Stack {
     new ResourceGeneratorConstruct(this, "Generator", {
       resources: stackResources,
       httpApi,
+
+      // default Lambda settings
+      functionOptions: {
+        bundling: {
+          minify: true,
+          sourceMap: true,
+        },
+      },
     })
   }
 }

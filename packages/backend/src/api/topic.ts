@@ -10,18 +10,6 @@ import {
 } from "@jetkit/cdk"
 import { Column, Entity } from "typeorm"
 
-const commonOpts = {
-  memorySize: 512,
-  bundling: {
-    // target: "node14",
-    minify: true,
-    // sourceMap: true,
-    target: "es2020",
-    metafile: true,
-    esbuildVersion: "0.11.14",
-  },
-}
-
 /**
  * Forum topic
  */
@@ -33,7 +21,6 @@ export class Topic extends BaseModel {
 
 @ApiView({
   path: "/topic",
-  ...commonOpts,
   handler: "TopicCrudApi.dispatch",
 })
 export class TopicCrudApi extends ApiViewBase {
@@ -55,5 +42,4 @@ export async function queryHandler(event: ApiEvent) {
 // define route & lambda
 Lambda({
   path: "/blargle",
-  ...commonOpts,
 })(queryHandler)

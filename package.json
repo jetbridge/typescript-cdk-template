@@ -27,6 +27,8 @@
     "packages/*"
   ],
   "dependencies": {
+    "@aws-cdk/aws-apigatewayv2": "^1.105.0",
+    "@jdpnielsen/http-error": "^1.2.1",
     "@jetkit/cdk": "^0.1.1",
     "typeorm": "^0.2.32"
   },
