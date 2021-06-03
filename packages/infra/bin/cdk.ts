@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 import { App } from "@aws-cdk/core"
 import "source-map-support/register"
+import { appName } from "demo-backend/src/app"
 import { InfraStack } from "../lib/cdk-stack"
 
 const app = new App()
-export const stack = new InfraStack(app, "MyApp", {
+export const stack = new InfraStack(app, appName, {
   /* If you don't specify 'env', this stack will be environment-agnostic.
    * Account/Region-dependent features and context lookups will not work,
    * but a single synthesized template can be deployed anywhere. */

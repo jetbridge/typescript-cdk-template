@@ -27,12 +27,13 @@
     "packages/*"
   ],
   "dependencies": {
-    "@aws-cdk/aws-apigatewayv2": "^1.105.0",
     "@jdpnielsen/http-error": "^1.2.1",
     "@jetkit/cdk": "^0.1.1",
     "typeorm": "^0.2.32"
   },
   "devDependencies": {
+    "@aws-cdk/aws-apigatewayv2": "^1.105.0",
+    "@aws-cdk/aws-lambda-nodejs": "^1.105.0",
     "@tsconfig/node14": "^1.0.0",
     "@typescript-eslint/eslint-plugin": "^4.21.0",
     "@typescript-eslint/parser": "^4.21.0",
