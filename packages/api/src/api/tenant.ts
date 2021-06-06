@@ -1,6 +1,5 @@
 import { HttpMethod } from "@aws-cdk/aws-apigatewayv2"
-import { badRequest } from "@jdpnielsen/http-error"
-import { ApiView, ApiViewBase, apiViewHandler, Duration, RequestHandler } from "@jetkit/cdk"
+import { ApiView, ApiViewBase, apiViewHandler, RequestHandler } from "@jetkit/cdk"
 import { db, Tenant } from "template-repo"
 
 @ApiView({
