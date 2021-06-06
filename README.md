@@ -37,5 +37,5 @@ Peruse the [@jetkit/cdk README](https://github.com/jetbridge/jetkit-cdk#readme) 
    - Run dev server and watch for changes:
 
    - ```shell
-      npm run start
+     npm start
      ```
