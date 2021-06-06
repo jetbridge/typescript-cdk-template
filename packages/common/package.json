@@ -1,0 +1,13 @@
+{
+  "name": "template-common",
+  "version": "1.0.0",
+  "description": "",
+  "main": "build/index.js",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsc -w",
+    "build": "tsc"
+  },
+  "author": ""
+}

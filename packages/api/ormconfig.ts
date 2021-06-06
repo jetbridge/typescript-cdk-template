@@ -1,4 +1,4 @@
-import { SnakeNamingStrategy } from "typeorm-naming-strategies/snake-naming.strategy";
+import { SnakeNamingStrategy } from "typeorm-naming-strategies/snake-naming.strategy"
 // import { getConnectionOptions } from "./src/db/Connection";
 
 // const buildORMConfig = async (): Promise<any> => {

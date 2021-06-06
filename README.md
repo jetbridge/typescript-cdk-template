@@ -4,9 +4,9 @@ Want to develop serverless applications with TypeScript on AWS? This is the proj
 
 ## Features
 
-* NPM v7 workspace monorepo
-* Infrastructure as code: [AWS CDK](https://docs.aws.amazon.com/cdk/latest/guide/home.html)
-* [JetKit/CDK anti-framework](https://www.jetkit.dev/)
+- NPM v7 workspace monorepo
+- Infrastructure as code: [AWS CDK](https://docs.aws.amazon.com/cdk/latest/guide/home.html)
+- [JetKit/CDK anti-framework](https://www.jetkit.dev/)
 
 ## Quickstart
 
@@ -15,26 +15,27 @@ Peruse the [@jetkit/cdk README](https://github.com/jetbridge/jetkit-cdk#readme) 
 1. [Use this template to start a new repo](https://github.com/jetbridge/typescript-cdk-template/generate).
 1. Install dependencies:
 
-    ```shell
-    npm i -g aws-cdk@latest npm@latest
-    npm i
-    ```
+   ```shell
+   npm i -g aws-cdk@latest npm@latest
+   npm i
+   ```
 
-2. Deploy backend and infrastructure:
+1. Deploy backend and infrastructure:
 
-    ```shell
-    npm run deploy:infra
-    ```
+   ```shell
+   npm run deploy:infra
+   ```
 
-3. Run local dev server:
+1. Run local dev server:
 
    [More info](https://aws.amazon.com/blogs/compute/better-together-aws-sam-and-aws-cdk/).
 
-   * Install [aws-sam-cli-beta-cdk](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-cdk-getting-started.html)
-      *  macOS: `brew install aws-sam-cli-beta-cdk`
+   - Install [aws-sam-cli-beta-cdk](https://docs.aws.amazon.com/serverless-application-model/latest/developerguide/serverless-cdk-getting-started.html)
 
-   * Run dev server and watch for changes:
+     - macOS: `brew install aws-sam-cli-beta-cdk`
 
-   * ```shell
+   - Run dev server and watch for changes:
+
+   - ```shell
       npm run start
-      ```
+     ```

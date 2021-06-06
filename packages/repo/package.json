@@ -1,5 +1,5 @@
 {
-  "name": "demo-repo",
+  "name": "template-repo",
   "version": "1.0.0",
   "description": "",
   "main": "build/index.js",
@@ -22,8 +22,10 @@
   "license": "",
   "dependencies": {
     "class-validator": "^0.12.2",
-    "ts-node": "^9.0.0",
-    "typeorm": "^0.2.26",
+    "pg": "^8.6.0",
+    "ts-node": "^10.0.0",
+    "typeorm": "^0.2.34",
+    "typeorm-aurora-data-api-driver": "^2.1.1",
     "typeorm-naming-strategies": "^2.0.0"
   },
   "devDependencies": {

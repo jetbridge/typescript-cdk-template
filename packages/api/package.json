@@ -1,5 +1,5 @@
 {
-  "name": "demo-backend",
+  "name": "template-api",
   "version": "1.0.0",
   "description": "",
   "main": "build/index.js",
@@ -18,6 +18,7 @@
   "author": "",
   "license": "",
   "dependencies": {
+    "@jdpnielsen/http-error": "^1.2.1",
     "@lambda-middleware/class-validator": "^1.0.1",
     "@lambda-middleware/compose": "^1.2.0",
     "@lambda-middleware/http-error-handler": "^1.0.1",
@@ -29,6 +30,7 @@
     "convict": "^6.0.0"
   },
   "devDependencies": {
+    "@aws-cdk/aws-apigatewayv2": "^1.107.0",
     "@babel/helper-validator-option": "^7.12.0",
     "@types/aws-lambda": "^8.10.62",
     "@types/convict": "^5.2.2",
@@ -36,7 +38,7 @@
     "@types/node": "^8.0.29",
     "jest": "^26.6.0",
     "ts-jest": "^26.5.4",
-    "ts-node": "3.3.0",
+    "ts-node": "^10.0.0",
     "typescript": "^4.2.4"
   }
 }

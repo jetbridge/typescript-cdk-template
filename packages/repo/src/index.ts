@@ -1,10 +1,20 @@
+import { DatabaseManager } from "@jetkit/cdk"
+import { Tenant } from "./model/tenant"
+import { Vacancy } from "./model/vacancy"
+
 // DB models
-export { DeveloperStudio } from "./model/developerStudio"
-export { Game } from "./model/game"
-export { Genre } from "./model/genre"
+export { Tenant } from "./model/tenant"
+export { Vacancy } from "./model/vacancy"
 
 // Factories
-export { gameFactory } from "./factory/game.factory"
 
 // Utilities
 export * from "./util/pagination"
+
+export { DatabaseManager }
+
+const db = new DatabaseManager({
+  entities: [Tenant, Vacancy],
+  printQueries: true,
+})
+export { db }

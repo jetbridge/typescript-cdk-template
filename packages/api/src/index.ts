@@ -1,0 +1,1 @@
+export { stackResources } from "./app"

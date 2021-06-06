@@ -1,7 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "outDir": "./build",
+    "outDir": "./build", // redirect output structure to the directory
     "incremental": true
   },
   "include": ["src"]
