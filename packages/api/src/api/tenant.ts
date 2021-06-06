@@ -10,7 +10,7 @@ import { db, Tenant } from "template-repo"
 })
 export class TenantApi extends ApiViewBase {
   override get: RequestHandler = async () => {
-    // get first tenant
+    // list tenants
     const tenants = await (await db.getConnection()).manager.find(Tenant)
     return JSON.stringify({
       tenants,
