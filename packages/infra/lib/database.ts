@@ -21,7 +21,7 @@ export class Database extends SlsPgDb {
         subnetType: SubnetType.ISOLATED,
       },
       clusterIdentifier: appName,
-      dbName: appName,
+      defaultDatabaseName: appName,
       parameterGroup: ParameterGroup.fromParameterGroupName(scope, "ParameterGroup", "default.aurora-postgresql10"),
       removalPolicy: isProduction ? RemovalPolicy.RETAIN : RemovalPolicy.DESTROY,
       scaling: {

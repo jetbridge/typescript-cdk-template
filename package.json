@@ -30,7 +30,7 @@
     "packages/*"
   ],
   "dependencies": {
-    "@jetkit/cdk": "~0.3.1",
+    "@jetkit/cdk": "~0.3.2",
     "aws-xray-sdk": "^3.3.3",
     "typeorm": "^0.2.32",
     "uuid": "^3.3.2"
