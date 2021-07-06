@@ -1,8 +1,8 @@
 {
   "name": "template",
   "version": "1.0.0",
-  "description": "A platform for respectable software clients and elite devs to connect.",
-  "author": "JetBridge Software Inc.",
+  "description": "Project template for CDK and TypeScript",
+  "author": "Myself",
   "private": true,
   "scripts": {
     "start:infra": "npm start -w template-infra",
@@ -30,7 +30,7 @@
     "@aws-cdk/assert": "1.110.0",
     "@aws-sdk/client-dynamodb": "^3.19.0",
     "@jdpnielsen/http-error": "^1.2.1",
-    "@jetkit/cdk": "^0.4.9",
+    "@jetkit/cdk": "0.4.10",
     "@types/jest": "26.0.23",
     "aws-cdk": "1.110.0",
     "aws-xray-sdk": "^3.3.3",

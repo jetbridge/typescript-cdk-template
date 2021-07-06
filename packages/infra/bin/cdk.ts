@@ -5,6 +5,11 @@ import { InfraStack } from "../lib/stack"
 import { appName } from "template-common"
 
 const app = new App()
+
+export const devStack = new InfraStack(app, `${appName}-dev`, {
+  isProduction: false,
+})
+
 export const prodStack = new InfraStack(app, appName, {
   isProduction: false, // change to true when launched
 
