@@ -1,5 +1,5 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "outDir": "./build",
     "module": "commonjs",
@@ -7,5 +7,7 @@
     "esModuleInterop": true,
     "lib": []
   },
+  "references": [{ "path": "../common" }, { "path": "../api" }, { "path": "../repo" }],
+  "include": ["src", "lib/dynamo.ts"],
   "exclude": ["cdk.out"]
 }
