@@ -6,6 +6,5 @@
     { "path": "packages/repo" },
     { "path": "packages/api" },
     { "path": "packages/infra" }
-  ],
-  "compilerOptions": {}
+  ]
 }
