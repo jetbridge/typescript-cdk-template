@@ -1,6 +1,5 @@
 # if you happen to want to use netlify and nextJS you can do it using this template
-
-s[build]
+[build]
   # install npm 7 and build from top level
   command = "cd ../.. && npm run build:ci:frontend"
 
