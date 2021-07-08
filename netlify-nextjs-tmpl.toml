@@ -1,0 +1,15 @@
+# if you happen to want to use netlify and nextJS you can do it using this template
+[build]
+  # install npm 7 and build from top level
+  command = "cd ../.. && npm run build:ci:frontend"
+
+  # where nextJS lives
+  base = "packages/frontend"
+  publish = "packages/frontend/build"
+
+  # use node 16 (comes with NPM 7)
+  environment = { NODE_VERSION = "16.4.2" }
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"
+

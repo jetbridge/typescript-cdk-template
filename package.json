@@ -1,25 +1,22 @@
 {
-  "name": "demo",
+  "name": "template",
   "version": "1.0.0",
-  "description": "",
-  "author": "",
+  "description": "Project template for CDK and TypeScript",
+  "author": "Myself",
   "private": true,
   "scripts": {
-    "start:common": "cd packages/common && npm start",
-    "start:repo": "cd packages/repo && npm start",
-    "start:api": "cd packages/api && npm start",
-    "start:local": "cd packages/infra && npm start",
-    "start": "concurrently npm:start:*",
-    "build:repo": "cd packages/repo && npm run build",
-    "build:api": "cd packages/api && npm run build",
-    "build:common": "cd packages/common && npm run build",
-    "build": "concurrently npm:build:*",
-    "db:init:local": "cd packages/repo && npm run db:init:local",
-    "deploy:infra": "npm run build && cd packages/infra && npm run deploy:prd",
+    "start:infra": "npm start -w template-infra",
+    "start:build": "tsc --build --watch",
+    "start": "npm run build && concurrently npm:start:*",
+    "build": "tsc --build",
+    "db:init:local": "npm run db:init:local -w template-repo",
+    "deploy:dev": "npm run build && npm run deploy:dev -w template-infra",
+    "deploy:prd": "npm run build && npm run deploy:prd -w template-infra",
     "prettier:exc": "./node_modules/.bin/prettier --config .prettierrc --write",
     "prettier": "npm run prettier:exc -- '**/*.{js,ts,tsx,css,json,yaml,yml,md}'",
     "lint": "eslint packages/*/src/**",
-    "test": "echo not implemented"
+    "test": "jest",
+    "clean": "tsc --build --clean"
   },
   "engines": {
     "node": ">=0.14",
@@ -30,12 +27,20 @@
     "packages/*"
   ],
   "dependencies": {
-    "@jetkit/cdk": "~0.3.2",
+    "@aws-cdk/assert": "1.110.0",
+    "@aws-sdk/client-dynamodb": "^3.19.0",
+    "@jdpnielsen/http-error": "^1.2.1",
+    "@jetkit/cdk": "0.4.10",
+    "@types/jest": "26.0.23",
+    "aws-cdk": "1.110.0",
     "aws-xray-sdk": "^3.3.3",
+    "slugify": "^1.5.3",
     "typeorm": "^0.2.32",
     "uuid": "^3.3.2"
   },
   "devDependencies": {
+    "@aws-sdk/types": "^3.18.0",
+    "@shelf/jest-dynamodb": "^1.8.1",
     "@tsconfig/node14": "^1.0.0",
     "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.26.0",
@@ -43,9 +48,13 @@
     "babel-eslint": "^10.1.0",
     "concurrently": "^6.2.0",
     "eslint": "^7.27.0",
+    "eslint-config-next": "^11.0.1",
     "husky": "^4.3.0",
+    "jest": "^26.6.3",
     "lint-staged": "^10.4.0",
     "prettier": "^2.3.1",
+    "ts-jest": "^26.5.6",
+    "ts-node": "^10.0.0",
     "typescript": "^4.3.2"
   },
   "husky": {

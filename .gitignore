@@ -1,6 +1,9 @@
 build
 .build
+.next
+packages/*/output
 node_modules
 .idea
 .DS_Store
 *.map
+tsconfig.tsbuildinfo

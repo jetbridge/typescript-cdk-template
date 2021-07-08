@@ -1,0 +1,24 @@
+{
+  // https://www.npmjs.com/package/@tsconfig/node14
+  "extends": "@tsconfig/node14/tsconfig.json",
+
+  "compilerOptions": {
+    "composite": true, // https://www.typescriptlang.org/docs/handbook/project-references.html
+
+    "moduleResolution": "node", // modern
+    "module": "commonjs",
+    "declaration": true /* Generates corresponding '.d.ts' file. */,
+    "declarationMap": true /* Generates a sourcemap for each corresponding '.d.ts' file. */,
+    "sourceMap": true /* Generates corresponding '.map' file. */,
+    "resolveJsonModule": true, // allow importing JSON files
+    "experimentalDecorators": true, // enable decorators
+    "emitDecoratorMetadata": true, // for runtime use of decorators (typeORM)
+    // "baseUrl": "packages", // allow absolute path imports for all project packages
+    "strictPropertyInitialization": false, // for TypeORM
+    // "noUnusedLocals": true /* Report errors on unused locals. */,
+    // "noUnusedParameters": true /* Report errors on unused parameters. */,
+    "noImplicitReturns": true /* Report error when not all code paths in function return a value. */,
+    "noFallthroughCasesInSwitch": true /* Report errors for fallthrough cases in switch statement. */,
+    "noImplicitOverride": true // must use override
+  }
+}
