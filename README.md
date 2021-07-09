@@ -1,3 +1,6 @@
+[![Tests](https://github.com/jetbridge/typescript-cdk-template/actions/workflows/ci.yml/badge.svg)](https://github.com/jetbridge/typescript-cdk-template/actions/workflows/ci.yml)
+[![Open in Visual Studio Code](https://open.vscode.dev/badges/open-in-vscode.svg)](https://open.vscode.dev/jetbridge/typescript-cdk-template)
+
 # Serverless TypeScript Template
 
 Want to develop serverless applications with TypeScript on AWS? This is the project template for you.
