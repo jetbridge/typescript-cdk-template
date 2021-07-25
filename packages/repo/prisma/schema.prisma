@@ -1,0 +1,18 @@
+generator client {
+  provider = "prisma-client-js"
+
+  // RHEL is for amazon linux - useful for docker local dev and packaging
+  binaryTargets = ["native", "rhel-openssl-1.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+
+model Tenant {
+  id   String @id @default(dbgenerated("uuid_generate_v4()")) @db.Uuid
+  name String @unique
+}
+

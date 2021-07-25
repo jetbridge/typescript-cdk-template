@@ -27,15 +27,14 @@
     "packages/*"
   ],
   "dependencies": {
-    "@aws-cdk/assert": "1.110.0",
+    "@aws-cdk/assert": "*",
     "@aws-sdk/client-dynamodb": "^3.19.0",
     "@jdpnielsen/http-error": "^1.2.1",
-    "@jetkit/cdk": "0.4.10",
+    "@jetkit/cdk": "1.115.1",
     "@types/jest": "26.0.23",
-    "aws-cdk": "1.110.0",
+    "aws-cdk": "*",
     "aws-xray-sdk": "^3.3.3",
     "slugify": "^1.5.3",
-    "typeorm": "^0.2.32",
     "uuid": "^3.3.2"
   },
   "devDependencies": {

@@ -9,5 +9,8 @@
     "start": "tsc -w",
     "build": "tsc"
   },
-  "author": ""
+  "author": "",
+  "dependencies": {
+    "aws-sdk": "^2.953.0"
+  }
 }

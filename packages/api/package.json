@@ -5,14 +5,6 @@
   "main": "build/index.js",
   "private": true,
   "scripts": {
-    "db:dropcreatedb": "dropdb <%= title %> --if-exists && createdb <%= title %>",
-    "db:migrate": "ts-node ../../node_modules/typeorm/cli.js migration:run",
-    "db:migrate:generate": "npm run build:core && ts-node ../../node_modules/typeorm/cli.js migration:generate -n $name",
-    "db:dropcreatedb:test": "dropdb <%= title %>_test --if-exists && createdb <%= title %>_test",
-    "db:seed": "ts-node ./src/db/runSeed.ts",
-    "db:init:local": "npm run build:core && npm run db:dropcreatedb && npm run db:migrate && npm run db:seed",
-    "test": "export NODE_ENV=test && npm run db:dropcreatedb:test && jest -i",
-    "build": "tsc",
     "start": "tsc -w"
   },
   "author": "",
