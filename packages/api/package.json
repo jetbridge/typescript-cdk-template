@@ -21,7 +21,7 @@
     "class-validator": "^0.12.2"
   },
   "devDependencies": {
-    "@aws-cdk/aws-apigatewayv2": "1.110.0",
+    "@aws-cdk/aws-apigatewayv2": "1.115.0",
     "@babel/helper-validator-option": "^7.12.0",
     "@types/aws-lambda": "^8.10.62"
   }

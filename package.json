@@ -7,8 +7,10 @@
   "scripts": {
     "start:infra": "npm start -w template-infra",
     "start:build": "tsc --build --watch",
-    "start": "npm run build && concurrently npm:start:*",
+    "start:watch": "tsc --build --watch --incremental",
+    "start": "npm run build:incremental && concurrently -c green.bold --kill-others npm:start:*",
     "build": "tsc --build",
+    "build:incremental": "npm run db:generate && tsc --build --incremental",
     "db:init:local": "npm run init:local -w template-repo",
     "db:seed": "npm run seed -w template-repo",
     "db:start": "npm run start:db -w template-infra",
@@ -32,12 +34,12 @@
     "packages/*"
   ],
   "dependencies": {
-    "@aws-cdk/assert": "*",
+    "@aws-cdk/assert": "1.115.0",
     "@aws-sdk/client-dynamodb": "^3.19.0",
     "@jdpnielsen/http-error": "^1.2.1",
     "@jetkit/cdk": "1.115.1",
     "@types/jest": "26.0.23",
-    "aws-cdk": "*",
+    "aws-cdk": "1.115.0",
     "aws-xray-sdk": "^3.3.3",
     "slugify": "^1.5.3",
     "uuid": "^3.3.2"

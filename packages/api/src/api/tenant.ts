@@ -1,11 +1,13 @@
 import { HttpMethod } from "@aws-cdk/aws-apigatewayv2"
-import { ApiView, ApiViewBase, apiViewHandler, ApiHandler } from "@jetkit/cdk"
+import { ApiView, ApiViewBase, apiViewHandler, ApiHandler, Duration } from "@jetkit/cdk"
 import { TenantRepository } from "template-repo"
 
 @ApiView({
   path: "/tenant",
   methods: [HttpMethod.GET],
   grantDatabaseAccess: true,
+  memorySize: 1024,
+  timeout: Duration.seconds(10),
 })
 export class TenantApi extends ApiViewBase {
   override get: ApiHandler = async () => {
