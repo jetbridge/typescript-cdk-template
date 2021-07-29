@@ -5,34 +5,28 @@
   "main": "build/index.js",
   "private": true,
   "scripts": {
-    "build": "tsc",
-    "start": "tsc -w",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "eslint src/**/*.ts",
-    "db:init:local": "npm run db:dropcreatedb && npm run db:migrate && npm run seed:run",
-    "db:init:remote:dev": "npm run db:migrate && npm run seed:run",
-    "db:dropcreatedb": "dropdb <%= title %> --if-exists && createdb <%= title %>",
-    "db:dropcreatedb:test": "dropdb <%= title %>_test --if-exists && createdb <%= title %>_test",
-    "db:migrate:generate": "ts-node ./node_modules/typeorm/cli.js migration:generate -n $name",
-    "db:migrate": "ts-node ./node_modules/typeorm/cli.js migration:run",
-    "seed:config": "ts-node ./node_modules/typeorm-seeding/dist/cli.js config",
-    "seed:run": "ts-node ./node_modules/typeorm-seeding/dist/cli.js seed"
+    "init:local": "npm run dropcreatedb && npm run migrate:dev",
+    "introspect": "prisma db pull && npm run generate",
+    "generate": "prisma generate",
+    "migrate:dev": "prisma migrate dev",
+    "migrate:deploy": "prisma migrate deploy",
+    "push": "prisma db push",
+    "dropcreatedb": "dropdb devbase --if-exists && createdb devbase",
+    "seed": "prisma db seed --preview-feature"
   },
   "author": "",
   "license": "",
   "dependencies": {
-    "class-validator": "^0.12.2",
+    "@prisma/client": "^2.27.0",
+    "dynamodb-toolbox": "^0.3.4",
     "pg": "^8.6.0",
-    "ts-node": "^10.0.0",
-    "typeorm": "^0.2.34",
-    "typeorm-aurora-data-api-driver": "^2.1.1",
-    "typeorm-naming-strategies": "^2.0.0"
+    "uuid": "^8.3.2"
   },
   "devDependencies": {
     "@types/faker": "^5.1.2",
-    "@types/node": "^14.11.8",
     "@types/pg": "^7.14.5",
     "faker": "^5.1.0",
-    "fishery": "^1.0.1"
+    "fishery": "^1.0.1",
+    "prisma": "^2.27.0"
   }
 }

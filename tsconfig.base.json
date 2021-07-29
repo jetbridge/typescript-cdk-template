@@ -12,7 +12,7 @@
     "sourceMap": true /* Generates corresponding '.map' file. */,
     "resolveJsonModule": true, // allow importing JSON files
     "experimentalDecorators": true, // enable decorators
-    "emitDecoratorMetadata": true, // for runtime use of decorators (typeORM)
+    "emitDecoratorMetadata": true, // for runtime use of decorators 
     // "baseUrl": "packages", // allow absolute path imports for all project packages
     "strictPropertyInitialization": false, // for TypeORM
     // "noUnusedLocals": true /* Report errors on unused locals. */,

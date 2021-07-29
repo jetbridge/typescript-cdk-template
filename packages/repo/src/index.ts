@@ -1,13 +1,3 @@
-import { DatabaseManager } from "@jetkit/cdk"
-import { Tenant } from "./model/tenant"
+export { prisma } from "./client"
 
-// DB models
-export { Tenant } from "./model/tenant"
-
-export { DatabaseManager }
-
-const db = new DatabaseManager({
-  entities: [Tenant],
-  printQueries: true,
-})
-export { db }
+export * from "./repository/tenant"

@@ -1,0 +1,10 @@
+version: '3.6'
+
+services:
+  pg:
+    image: postgres:13
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: localdev
+    ports:
+      - 5434:5432
